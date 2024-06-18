@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.14)  18 JUN 2024 12:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.14)  18 JUN 2024 22:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -159,8 +159,7 @@ tex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count298
 \l__pdf_internal_box=\box100
-)
-No file WPT_ViT.aux.
+) (WPT_ViT.aux)
 \openout1 = `WPT_ViT.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
@@ -178,16 +177,9 @@ LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 47.
+(Font)              <7> on input line 39.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 47.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 47.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 47.
-
-LaTeX Warning: Reference `ghou:pre' on page 1 undefined on input line 97.
-
+(Font)              <5> on input line 39.
 
 
 [1
@@ -195,49 +187,18 @@ LaTeX Warning: Reference `ghou:pre' on page 1 undefined on input line 97.
 
 {C:/Users/osmah/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 
-LaTeX Warning: Reference `eq:one' on page 2 undefined on input line 140.
-
-
-LaTeX Warning: Reference `eq:two' on page 2 undefined on input line 164.
-
-
-
 [2]
 
-LaTeX Warning: Reference `eq:three' on page 3 undefined on input line 243.
-
-
-
 [3]
-
-LaTeX Warning: Reference `eq:five' on page 4 undefined on input line 283.
-
-
-LaTeX Warning: Citation `smit:wat' on page 4 undefined on input line 288.
-
-
-LaTeX Warning: Reference `eq:four' on page 4 undefined on input line 293.
-
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 292.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 292.
 
 
 [4]
 
-LaTeX Warning: Citation `fo:kes:nic:tue' on page 5 undefined on input line 419.
-
-
-
-LaTeX Warning: Citation `may:ehr:stein' on page 5 undefined on input line 422.
-
-
-
 [5]
-
-LaTeX Warning: Citation `fost:kes' on page 6 undefined on input line 426.
-
-
-LaTeX Warning: Citation `czaj:fitz' on page 6 undefined on input line 426.
-
-
 
 [6] (WPT_ViT.aux)
  ***********
@@ -246,20 +207,17 @@ L3 programming layer <2024-05-27>
  ***********
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 1096 strings out of 473920
- 18146 string characters out of 5726974
+ 1093 strings out of 473920
+ 18280 string characters out of 5726974
  1939908 words of memory out of 5000000
- 23999 multiletter control sequences out of 15000+600000
+ 23994 multiletter control sequences out of 15000+600000
  564087 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,9n,65p,232b,339s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,9n,65p,971b,339s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -268,19 +226,18 @@ ublic/amsfonts/cm/cmbx9.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts
 TeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/osmah/AppData/Local/Pro
 grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/osmah/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/osmah/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/
-osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
-/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.
-pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmsy5.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmsy7.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/osmah/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/osmah/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on WPT_ViT.pdf (6 pages, 241917 bytes).
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/
+osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:
+/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmsy5.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmsy7.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmti10.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/osmah/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on WPT_ViT.pdf (6 pages, 233690 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
+ 96 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

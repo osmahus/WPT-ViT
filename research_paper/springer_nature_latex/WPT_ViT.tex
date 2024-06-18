@@ -19,41 +19,30 @@
 \begin{document}
 \mainmatter              % start of a contribution
 %
-\title{Hamiltonian Mechanics unter besonderer Ber\"ucksichtigung der
-h\"ohereren Lehranstalten}
+\title{DeepFake Detection Using Wavelet Packets with Vision Transformer (WPT-ViT)}
 %
-\titlerunning{Hamiltonian Mechanics}  % abbreviated title (for running head)
+\titlerunning{DeepFake Detection Using WPT-ViT}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{Ivar Ekeland\inst{1} \and Roger Temam\inst{2}
-Jeffrey Dean \and David Grove \and Craig Chambers \and Kim~B.~Bruce \and
-Elsa Bertino}
+\author{Osama Rawy \and AbdulRahman AlTahhan}
 %
-\authorrunning{Ivar Ekeland et al.} % abbreviated author list (for running head)
+\authorrunning{Osama Rawy et al.} % abbreviated author list (for running head)
 %
 %%%% list of authors for the TOC (use if author list has to be modified)
-\tocauthor{Ivar Ekeland, Roger Temam, Jeffrey Dean, David Grove,
-Craig Chambers, Kim B. Bruce, and Elisa Bertino}
+\tocauthor{AbdulRahman AlTahhan}
 %
-\institute{Princeton University, Princeton NJ 08544, USA,\\
-\email{I.Ekeland@princeton.edu},\\ WWW home page:
-\texttt{http://users/\homedir iekeland/web/welcome.html}
-\and
-Universit\'{e} de Paris-Sud,
-Laboratoire d'Analyse Num\'{e}rique, B\^{a}timent 425,\\
-F-91405 Orsay Cedex, France}
+\institute{University of Leeds, School of Computing, ODL MSc in AI, UK.\\
+WWW home page:\texttt{https://github.com/osmahus/WPT-ViT}
+}
 
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-The abstract should summarize the contents of the paper
-using at least 70 and at most 150 words. It will be set in 9-point
-font size and be inset 1.0 cm from the right and left margins.
-There will be two blank lines before and after the Abstract. \dots
+The latest advances in generative algorithms have raised the quality of virtually created images and videos to the point that it has become very difficult to distinguish the real from the generated ones (Deep-Fake). This stimulated hot research to build better models to detect DF.  Our paper proposes a new DNN model to detect DF images using a wavelet packet transformer and a vision transformer (WPT-ViT). The study shows that attention could be found between the WPT decompositions of an image even without slicing the image into spatial patches, which is a novel modification to the original VIT model. We showed that by using smaller model sizes and lower GPU and CPU requirements, we can achieve comparable results with previous work in this research area, The model was trained and tested using two datasets, “CIFAKE” and “140k Real and Fake Faces,” which are generated using StyleGAN and Stable Diffusion algorithms.
 % We would like to encourage you to list your keywords within
 % the abstract section using the \keywords{...} command.
-\keywords{computational geometry, graph theory, Hamilton cycles}
+\keywords{Deep Fake Detection, Wavelet Packets, Vision Transformer}
 \end{abstract}
 %
 \section{Fixed-Period Problems: The Sublinear Case}
