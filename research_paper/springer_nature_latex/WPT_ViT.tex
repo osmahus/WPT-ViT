@@ -45,6 +45,17 @@ The latest advances in generative algorithms have raised the quality of virtuall
 \keywords{Deep Fake Detection, Wavelet Packets, Vision Transformer}
 \end{abstract}
 %
+
+\section{Introduction}
+    In 2014, Goodfellow et al. introduced the Generative Adversarial Network (GAN), marking the beginning of the generative AI (GAI) era. Since then, researchers have shifted their focus from discriminative learning to generative learning. This wave brought various vision-generative applications to the market, such as Midjourney, Firefly, DALL-E2, and Imagen\cite {bengesi2024advancements}. Such applications were developed using state-of-the-art architectures like GAN, Variational Autoencoders, and Diffusion to generate images and videos with high fidelity and diversity, mimicking real-world photos and videos \cite {raut2024generative}. 
+Vision-generative technologies have shown high value in several domains. In the entertainment industry, for example, they could generate complete scenes that would otherwise be very risky for actors to perform or prohibitively expensive to produce. In Education, they could bring historical characters to life to talk with students for an immersive learning experience; similarly, the list of positive uses continues in other fields like manufacturing and marketing. However, this ability to produce synthetic content with realistic flavor was termed Deep Fake due to the unfortunate incidents in which these technologies were used to attack people through identity theft, character assassination, and faked pornography. On a larger scale, deep fakes were also used to spread misinformation, fake news, and communal hatred. According to a report released in April 2021 by “Cybernews,” deep fake content over the internet doubles every six months, posing a significant threat that needs to be addressed immediately\cite {patel2023deepfake}.
+
+\section{Literature Review}
+    \cite{TD0-Replay} has established a new TD(0) method that replays all past experiences. On the hand, \cite{TD-Replay} has taken this further to include a target that incorporates all past updates via TD($\lambda$). \cite{ConjugateTD} applied conjugate gradient update on TD.
+
+    
+
+
 \section{Fixed-Period Problems: The Sublinear Case}
 %
 With this chapter, the preliminaries are over, and we begin the search
@@ -412,7 +423,7 @@ approach enabled Clarke and Ekeland in \cite{may:ehr:stein} to treat the
 same problem in the convex-subquadratic case, with growth conditions on
 $H$ only.
 
-Recently, Michalek and Tarantello (see \cite{fost:kes} and \cite{czaj:fitz})
+Recently, Michalek and Tarantello (see \cite{1} and \cite{czaj:fitz})
 have obtained lower bound on the number of subharmonics of period $kT$,
 based on symmetry considerations and on pinching estimates, as in
 Sect.~5.2 of this article.
@@ -423,33 +434,134 @@ Sect.~5.2 of this article.
 \begin{thebibliography}{6}
 %
 
-\bibitem {smit:wat}
-Smith, T.F., Waterman, M.S.: Identification of common molecular subsequences.
-J. Mol. Biol. 147, 195?197 (1981). \url{doi:10.1016/0022-2836(81)90087-5}
+\bibitem {bengesi2024advancements}	
+Bengesi, Staphord, et al. "Advancements in Generative AI: A Comprehensive Review of GANs, GPT, Autoencoders, Diffusion Model, and Transformers." IEEE Access (2024).
 
-\bibitem {may:ehr:stein}
-May, P., Ehrlich, H.-C., Steinke, T.: ZIB structure prediction pipeline:
-composing a complex biological workflow through web services.
-In: Nagel, W.E., Walter, W.V., Lehner, W. (eds.) Euro-Par 2006.
-LNCS, vol. 4128, pp. 1148?1158. Springer, Heidelberg (2006).
-\url{doi:10.1007/11823285_121}
+\bibitem {raut2024generative}	
+Raut, Gaurav, and Apoorv Singh. "Generative AI in Vision: A Survey on Models, Metrics and Applications." arXiv preprint arXiv:2402.16369 (2024).
 
-\bibitem {fost:kes}
-Foster, I., Kesselman, C.: The Grid: Blueprint for a New Computing Infrastructure.
-Morgan Kaufmann, San Francisco (1999)
+\bibitem {patel2023deepfake}	
+Patel, Yogesh, et al. "Deepfake Generation and Detection: Case Study and Challenges." IEEE Access (2023).
 
-\bibitem {czaj:fitz}
-Czajkowski, K., Fitzgerald, S., Foster, I., Kesselman, C.: Grid information services
-for distributed resource sharing. In: 10th IEEE International Symposium
-on High Performance Distributed Computing, pp. 181?184. IEEE Press, New York (2001).
-\url{doi: 10.1109/HPDC.2001.945188}
 
-\bibitem {fo:kes:nic:tue}
-Foster, I., Kesselman, C., Nick, J., Tuecke, S.: The physiology of the grid: an open grid services architecture for distributed systems integration. Technical report, Global Grid
-Forum (2002)
+\bibitem {oussidi2018deep}	
+Oussidi, Achraf, Azeddine, Elhassouny. "Deep generative models: Survey." 2018 International conference on intelligent systems and computer vision (ISCV). 2018.
 
-\bibitem {onlyurl}
-National Center for Biotechnology Information. \url{http://www.ncbi.nlm.nih.gov}
+\bibitem {mehmood2023deep}	
+Mehmood, R, R, Bashir, KJ, Giri. "Deep generative models: a review". Indian Journal of Science and Technology 16. 7(2023): 460–467.
+
+\bibitem {bartosdeep}	
+Bartos, Gaye Ediboglu, Serel, Akyol. "Deep Learning for Image Authentication: A Comparative Study on Real and AI-Generated Image Classification". 
+
+\bibitem {wodajo2021deepfake}	
+Wodajo, Deressa, Solomon, Atnafu. "Deepfake video detection using convolutional vision transformer". arXiv preprint arXiv:2102.11126. (2021).
+
+\bibitem {hossain2023advancing}	
+Hossain, Md Zahid, Farhad Uz, Zaman, Md Rakibul, Islam. "Advancing AI-Generated Image Detection: Enhanced Accuracy through CNN and Vision Transformer Models with Explainable AI Insights." 2023 26th International Conference on Computer and Information Technology (ICCIT). 2023.
+
+\bibitem {zhao2021multi}	
+Zhao, Hanqing, Wenbo, Zhou, Dongdong, Chen, Tianyi, Wei, Weiming, Zhang, Nenghai, Yu. "Multi-attentional deepfake detection." Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2021.
+
+\bibitem {sharma2022deepfakes}	
+Sharma, Jatin, Sahil, Sharma, Vĳay, Kumar, Hany S, Hussein, Hammam, Alshazly. "Deepfakes Classification of Faces Using Convolutional Neural Networks.". Traitement du Signal 39. 3(2022).
+
+\bibitem {sharma2021challenges}	Sharma, Jatin, Sahil, Sharma. "Challenges and solutions in deepfakes". arXiv preprint arXiv:2109.05397. (2021).
+
+\bibitem {atwan2024using}	
+Atwan, Jaffar, Mohammad, Wedyan, Dheeb, Albashish, Elaf, Aljaafrah, Ryan, Alturki, Bandar, Alshawi. "Using Deep Learning to Recognize Fake Faces.". International Journal of Advanced Computer Science and Applications 15. 1(2024).
+
+\bibitem {eissa2023fake}	
+Eissa, Khaled, Friedhelm, Schwenker. "Fake vs. Real Face Discrimination Using Convolutional Neural Networks." Pan African Conference on Artificial Intelligence. 2023.
+
+\bibitem {bagherzadeh2023deepfake}	
+Bagherzadeh, Fahimeh, Razieh, Rastgoo. "Deepfake image detection using a deep hybrid convolutional neural network". Journal of Modeling in Engineering 21. 75(2023): 19–28.
+
+\bibitem {lanzino2024faster}	
+Lanzino, Romeo, Federico, Fontana, Anxhelo, Diko, Marco Raoul, Marini, Luigi, Cinque. "Faster Than Lies: Real-time Deepfake Detection using Binary Neural Networks." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2024.
+
+\bibitem {gupta2024visual}	
+Gupta, Achal Shankar, Krishan Pratap, Shreneter, Smriti, Sehgal. "Visual Veracity: Advancing AI-Generated Image Detection with Convolutional Neural Networks." 2024 11th International Conference on Reliability, Infocom Technologies and Optimization (Trends and Future Directions)(ICRITO). 2024.
+
+\bibitem {dolhansky2020deepfake}	
+Dolhansky, Brian, Joanna, Bitton, Ben, Pflaum, Jikuo, Lu, Russ, Howes, Menglin, Wang, Cristian Canton, Ferrer. "The deepfake detection challenge (dfdc) dataset". arXiv preprint arXiv:2006.07397. (2020).
+
+\bibitem {heidari2024deepfake}	
+Heidari, Arash, Nima, Jafari Navimipour, Hasan, Dag, Mehmet, Unal. "Deepfake detection using deep learning methods: A systematic and comprehensive review". Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery 14. 2(2024): e1520.
+
+\bibitem {matern2019exploiting}	
+Matern, Falko, Christian, Riess, Marc, Stamminger. "Exploiting visual artifacts to expose deepfakes and face manipulations." 2019 IEEE Winter Applications of Computer Vision Workshops (WACVW). 2019.
+
+\bibitem {agarwal2019protecting}	
+Agarwal, Shruti, Hany, Farid, Yuming, Gu, Mingming, He, Koki, Nagano, Hao, Li. "Protecting World Leaders Against Deep Fakes.." CVPR workshops. 2019.
+
+\bibitem {ciftci2020fakecatcher}	
+Ciftci, Umur Aybars, Ilke, Demir, Lijun, Yin. "Fakecatcher: Detection of synthetic portrait videos using biological signals". IEEE transactions on pattern analysis and machine intelligence. (2020).
+
+\bibitem {yang2019exposing}	
+Yang, Xin, Yuezun, Li, Siwei, Lyu. "Exposing deep fakes using inconsistent head poses." ICASSP 2019-2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). 2019.
+
+\bibitem {mccloskey2019detecting}	
+McCloskey, Scott, Michael, Albright. "Detecting GAN-generated imagery using saturation cues." 2019 IEEE international conference on image processing (ICIP). 2019.
+
+\bibitem {guarnera2020deepfake}	
+Guarnera, Luca, Oliver, Giudice, Sebastiano, Battiato. "Deepfake detection by analyzing convolutional traces." Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops. 2020.
+
+\bibitem {nguyen2019multi}	
+Nguyen, Huy H, Fuming, Fang, Junichi, Yamagishi, Isao, Echizen. "Multi-task learning for detecting and segmenting manipulated facial images and videos." 2019 IEEE 10th international conference on biometrics theory, applications and systems (BTAS). 2019.
+
+\bibitem {khalil2021icaps}	
+Khalil, Samar Samir, Sherin M, Youssef, Sherine Nagy, Saleh. "iCaps-Dfake: An integrated capsule-based model for deepfake image and video detection". Future Internet 13. 4(2021): 93.
+
+\bibitem {afchar2018mesonet}	
+Afchar, Darius, Vincent, Nozick, Junichi, Yamagishi, Isao, Echizen. "Mesonet: a compact facial video forgery detection network." 2018 IEEE international workshop on information forensics and security (WIFS). 2018.
+
+\bibitem {wang2020video}	
+Wang, Yaohui, Antitza, Dantcheva. "A video is worth more than 1000 lies. Comparing 3DCNN approaches for detecting deepfakes." 2020 15Th IEEE international conference on automatic face and gesture recognition (FG 2020). 2020.
+
+\bibitem {rafique2023deep}	
+Rafique, Rimsha, Rahma, Gantassi, Rashid, Amin, Jaroslav, Frnda, Aida, Mustapha, Asma Hassan, Alshehri. "Deep fake detection and classification using error-level analysis and deep learning". Scientific Reports 13. 1(2023): 7422.
+
+\bibitem {dosovitskiy2020image}	
+Dosovitskiy, Alexey, Lucas, Beyer, Alexander, Kolesnikov, Dirk, Weissenborn, Xiaohua, Zhai, Thomas, Unterthiner, Mostafa, Dehghani, Matthias, Minderer, Georg, Heigold, Sylvain, Gelly, others. "An image is worth 16x16 words: Transformers for image recognition at scale". arXiv preprint arXiv:2010.11929. (2020).
+
+\bibitem {percival2000wavelet}	
+Percival, Donald B, Andrew T, Walden. Wavelet methods for time series analysis. Vol. 4. Cambridge university press, 2000.
+
+\bibitem {ryan2014nonlinear}	
+Ryan, Øyvind, Geir Dahl, and Knut Mørken. "Nonlinear optimization Lecture notes for the course MAT-INF2360." University of Oslo (2014).
+
+\bibitem {marcellin2000overview}	
+Marcellin, Michael W, Michael J, Gormish, Ali, Bilgin, Martin P, Boliek. "An overview of JPEG-2000." Proceedings DCC 2000. Data compression conference. 2000.
+
+\bibitem {nadler2023divergences}	
+Nadler, Ethan O, Elise, Darragh-Ford, Bhargav Srinivasa, Desikan, Christian, Conaway, Mark, Chu, Tasker, Hull, Douglas, Guilbeault. "Divergences in color perception between deep neural networks and humans". Cognition 241. (2023): 105621.
+
+\bibitem {li2021wavecnet}	
+Li, Qiufu, Linlin, Shen, Sheng, Guo, Zhihui, Lai. "WaveCNet: Wavelet integrated CNNs to suppress aliasing effect for noise-robust image classification". IEEE Transactions on Image Processing 30. (2021): 7074–7089.
+
+\bibitem {cody1994wavelet}	
+Cody, Mac A. "The wavelet packet transform: Extending the wavelet transform". Dr. Dobb's Journal 19. (1994): 44–46.
+
+\bibitem {luo2008image}	
+Luo, Xiangyang, Fenlin, Liu, Jianming, Chen, Yining, Zhang. "Image universal steganalysis based on wavelet packet transform." 2008 IEEE 10th Workshop on Multimedia Signal Processing. 2008.
+
+\bibitem {davidson2005artificial}	
+Davidson, Jennifer, Clifford, Bergman, Eric, Bartlett. "An artificial neural network for wavelet steganalysis." Mathematical Methods in Pattern and Image Analysis. 2005.
+
+\bibitem {wolter2022wavelet}	
+Wolter, Moritz, Felix, Blanke, Raoul, Heese, Jochen, Garcke. "Wavelet-packets for deepfake image analysis and detection". Machine Learning 111. 11(2022): 4295–4327.
+
+\bibitem {rossler2019faceforensics++}	
+Rossler, Andreas, Davide, Cozzolino, Luisa, Verdoliva, Christian, Riess, Justus, Thies, Matthias, Nießner. "Faceforensics++: Learning to detect manipulated facial images." Proceedings of the IEEE/CVF international conference on computer vision. 2019.
+
+\bibitem {bird2024cifake}	
+Bird, Jordan J, Ahmad, Lotfi. "Cifake: Image classification and explainable identification of ai-generated synthetic images". IEEE Access. (2024).
+
+\bibitem {chen2024diffusionface}	
+Chen, Zhongxi, Ke, Sun, Ziyin, Zhou, Xianming, Lin, Xiaoshuai, Sun, Liujuan, Cao, Rongrong, Ji. "DiffusionFace: Towards a Comprehensive Dataset for Diffusion-Based Face Forgery Analysis". arXiv preprint arXiv:2403.18471. (2024).
+
+\bibitem {140krvsf}	
+“140k Real and Fake Faces | Kaggle.\url{https://www.kaggle.com/xhlulu/140k-real-and-fake-faces}
 
 
 \end{thebibliography}
