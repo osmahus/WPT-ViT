@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.14)  20 JUN 2024 02:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.14)  20 JUN 2024 10:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -181,7 +181,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 39.
 
-Overfull \hbox (2.72429pt too wide) in paragraph at lines 50--52
+Overfull \hbox (2.72429pt too wide) in paragraph at lines 50--54
 \OT1/cmr/m/n/10 In 2014, Good-fel-low et al. in-tro-duced the Gen-er-a-tive Ad-
 ver-sar-ial Net-work (GAN),
  []
@@ -193,13 +193,13 @@ ver-sar-ial Net-work (GAN),
 
 {C:/Users/osmah/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 
-LaTeX Warning: Citation `TD0-Replay' on page 2 undefined on input line 54.
+LaTeX Warning: Citation `TD0-Replay' on page 2 undefined on input line 56.
 
 
-LaTeX Warning: Citation `TD-Replay' on page 2 undefined on input line 54.
+LaTeX Warning: Citation `TD-Replay' on page 2 undefined on input line 56.
 
 
-LaTeX Warning: Citation `ConjugateTD' on page 2 undefined on input line 54.
+LaTeX Warning: Citation `ConjugateTD' on page 2 undefined on input line 56.
 
 
 
@@ -209,35 +209,35 @@ LaTeX Warning: Citation `ConjugateTD' on page 2 undefined on input line 54.
 
 [4]
 
-LaTeX Warning: Citation `smit:wat' on page 5 undefined on input line 288.
+LaTeX Warning: Citation `smit:wat' on page 5 undefined on input line 290.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 303.
+(Font)              <9> on input line 305.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 303.
+(Font)              <6> on input line 305.
 
 
 [5]
 
-LaTeX Warning: Citation `fo:kes:nic:tue' on page 6 undefined on input line 419.
+LaTeX Warning: Citation `fo:kes:nic:tue' on page 6 undefined on input line 421.
 
 
 
-LaTeX Warning: Citation `may:ehr:stein' on page 6 undefined on input line 422.
+LaTeX Warning: Citation `may:ehr:stein' on page 6 undefined on input line 424.
 
 
 
 [6]
 
-LaTeX Warning: Citation `1' on page 7 undefined on input line 426.
+LaTeX Warning: Citation `1' on page 7 undefined on input line 428.
 
 
-LaTeX Warning: Citation `czaj:fitz' on page 7 undefined on input line 426.
+LaTeX Warning: Citation `czaj:fitz' on page 7 undefined on input line 428.
 
 
 
 [7]
-Underfull \hbox (badness 1603) in paragraph at lines 522--523
+Underfull \hbox (badness 1603) in paragraph at lines 535--536
 []\OT1/cmr/m/n/9 Rafique, Rimsha, Rahma, Gan-tassi, Rashid, Amin, Jaroslav, Frn
 da, Aida,
  []
@@ -245,7 +245,7 @@ da, Aida,
 
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 564--565
+Underfull \hbox (badness 10000) in paragraph at lines 577--578
 []\OT1/cmr/m/n/9 \140k Real and Fake Faces | Kaggle.$https : / / www . kaggle .
  com / xhlulu /
  []
@@ -257,19 +257,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 564--565
 LaTeX2e <2024-06-01> patch level 1
 L3 programming layer <2024-05-27>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 1129 strings out of 473920
- 19029 string characters out of 5726974
+ 1130 strings out of 473920
+ 19051 string characters out of 5726974
  1939908 words of memory out of 5000000
- 24030 multiletter control sequences out of 15000+600000
+ 24031 multiletter control sequences out of 15000+600000
  564087 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,9n,65p,1081b,327s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,9n,65p,971b,327s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -287,7 +283,7 @@ amsfonts/cm/cmsy7.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fonts/type1
 /public/amsfonts/cm/cmti10.pfb><C:/Users/osmah/AppData/Local/Programs/MiKTeX/fo
 nts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/osmah/AppData/Local/Programs/M
 iKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on WPT_ViT.pdf (9 pages, 246504 bytes).
+Output written on WPT_ViT.pdf (9 pages, 247749 bytes).
 PDF statistics:
  107 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
