@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1719102581 "/home/osmahus/Code/DF/Final_V2.0/WPT-ViT/research_paper/springer_nature_latex/WPT_ViT.tex" "WPT_ViT.pdf" "WPT_ViT" 1719102582
+["pdflatex"] 1719151309 "/home/osmahus/Code/DF/Final_V2.0/WPT-ViT/research_paper/springer_nature_latex/WPT_ViT.tex" "WPT_ViT.pdf" "WPT_ViT" 1719151309
   "/etc/texmf/web2c/texmf.cnf" 1718395306 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/osmahus/Code/DF/Final_V2.0/WPT-ViT/research_paper/springer_nature_latex/WPT_ViT.tex" 1719102581 21367 00708cfb0f2b94f23e68fda1dfca48c6 ""
+  "/home/osmahus/Code/DF/Final_V2.0/WPT-ViT/research_paper/springer_nature_latex/WPT_ViT.tex" 1719151308 22386 f79921b124c92c9ada38e7bb61f05823 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1246382020 996 a18840b13b499c08ac2de96a99eda4bc ""
@@ -43,6 +43,7 @@
   "/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty" 1603745920 67929 d50ae850e1d9604065e8337a75a41029 ""
   "/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty" 1603745920 6133 46bea384e36e9b74bd53a238fc2d0654 ""
   "/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
+  "/usr/share/texlive/texmf-dist/tex/latex/float/float.sty" 1137110151 6749 16d2656a1984957e674b149555f1ea1d ""
   "/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1465944070 1224 978390e9c2234eab29404bc21b268d1e ""
   "/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def" 1601931164 19103 48d29b6e2a64cb717117ef65f107b404 ""
   "/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty" 1622581934 18399 7e40f80366dffb22c0e7b70517db5cb4 ""
@@ -61,11 +62,16 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1718430761 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1718431473 2801013 18c79e78ace3baa0be6deaef4ed18805 ""
-  "WPT_ViT.aux" 1719102582 2305 d4298a32608ff9683dc3ad58157fe14f "pdflatex"
-  "WPT_ViT.tex" 1719102581 21367 00708cfb0f2b94f23e68fda1dfca48c6 ""
+  "WPT_ViT.aux" 1719151309 3544 0171cc97ee4495dc2074d1002dd5f3fe "pdflatex"
+  "WPT_ViT.tex" 1719151308 22386 f79921b124c92c9ada38e7bb61f05823 ""
   "aliascnt.sty" 1718728386 2598 b30528bf103263149326b7572d9672a5 ""
-  "figures/figure_01.png" 1718984276 15246 5333ca1ffe6d50e45e597727bb989d49 ""
-  "figures/figure_02.png" 1718983065 181870 3b1207dda29b5aa2b113c417d4feda80 ""
+  "figures/dataset_CIFAKE.png" 1718984276 15246 5333ca1ffe6d50e45e597727bb989d49 ""
+  "figures/dataset_RVSF.png" 1718983065 181870 3b1207dda29b5aa2b113c417d4feda80 ""
+  "figures/exp1_img1.png" 1719132254 8879 71dbaf372f9be18116236b5469d85308 ""
+  "figures/exp1_img1_wpt_dec.png" 1719133453 50684 bc569ffc80eebf4d2ae133b02879b15e ""
+  "figures/exp1_model.png" 1719136047 106257 6bab4fc6593e24a0cc3e2d507d953681 ""
+  "figures/exp1_traincurve.png" 1719138347 42527 aac2d116d00a08da355d908e3926f105 ""
+  "figures/wavelet_db2.png" 1719131699 23171 1b19ab640378566a269eabbcf3c48ee5 ""
   "remreset.sty" 1718728386 1096 6a75275ca00e32428c6f059d2f618ea7 ""
   "svproc.cls" 1718728386 44207 84fdd998887838efe5e0273e7a029560 ""
   (generated)

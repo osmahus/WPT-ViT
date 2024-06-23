@@ -20,6 +20,7 @@
 \usepackage{subcaption}
 \usepackage{tabularray}
 \usepackage{array}
+\usepackage{float}
 
 \newcolumntype{L}{>{\centering\arraybackslash}m{3cm}}
 \def\UrlFont{\rmfamily}
@@ -68,8 +69,8 @@
   model was trained and tested using two datasets, “CIFAKE” and “140k Real and
   Fake Faces,” which are generated using StyleGAN and Stable Diffusion
   algorithms.
-  % We would like to encourage you to list your keywords within
-  % the abstract section using the \keywords{...} command.
+ 
+
   \keywords{Deep Fake Detection, Wavelet Packets, Vision Transformer}
 \end{abstract}
 %
@@ -111,7 +112,7 @@ Transformer (VIT) to create lighter models with lower GPU and CPU requirements
 than CNN counterparts.
 
 \section{Literature Review}
-
+\subsection{Deepfake Literature}
 When it comes to detecting deep fakes, it can be seen as a binary
 classification problem involving training a machine learning model on a dataset
 of real and fake examples. This includes extracting relevant features from the
@@ -141,7 +142,10 @@ patterns and features present in the training dataset. The detection results
 are more accurate when a more relevant and comprehensive dataset is provided.
 According to Rana et al. (2022), previous deep fake detection models can be
 grouped into three categories: Machine learning, deep learning, and
-statistical. Their research indicated that 77% of the work from 2018 to 2020 falls under the Deep Learning category, with 78% being CNN-based. Ultimately, it was demonstrated that deep-learning-based deep fake detection models outperform non-deep learning models (Rana et al., 2022).
+statistical. Their research indicated that 77\% of the work from 2018 to 2020 
+falls under the Deep Learning category, with 78\% being CNN-based. 
+Ultimately, it was demonstrated that deep-learning-based deep fake detection 
+models outperform non-deep learning models (Rana et al., 2022).
 
 In a study conducted by Wang et al. (2024), it was demonstrated that while
 Convolutional Neural Networks (CNNs) are commonly used in deepfake detection to
@@ -161,6 +165,11 @@ capture the temporal and sequential dependencies present in video data. To
 address these limitations, hybrid models that combine ViTs with other
 techniques, such as CNNs or RNNs, are often utilized.
 
+\subsection{Wavelet Related Work}
+According to a study conducted by Nadler et al., it was observed that while Deep Neural Networks (DNNs) are increasingly employed as models of human vision, they may disregard essential perceptual attributes, such as color, in favor of constructing high-dimensional abstractions. In contrast, human visual cognition retains and integrates color information with other representations. The research also indicated that a wavelet algorithm based on wavelet decomposition produced more consistent color embeddings, which yielded better alignment with human color judgments compared to all the DNNs included in the study.
+In their study, Walter et al. used wavelet-packet representation to analyze GAN-generated images from datasets such as CelebA and LSUN. The research revealed differences in the spatial frequency properties of real images compared to GAN-generated images. Specifically, the mean ln-db4-wavelet packet plots and mean Haar-wavelet packet representation showed variations in the frequency content of the images. GAN-generated images exhibited differences in mean and standard deviation of wavelet packets, especially at higher frequencies and edges of the images. These differences suggest distinct spatial frequency properties of GAN-generated images compared to real images, which can be used for their detection and differentiation from real images.
+
+
 \section{Methods}
 \subsection{Multiresolution Analysis}
 The concept of multiresolution analysis (MRA) was developed to address the
@@ -172,26 +181,7 @@ this issue by incorporating increasing levels of time samples as we transition
 from the slower part of the signal to the faster part (Erick Axel, et al.).
 In order to achieve this, MRA (Multiresolution Analysis) utilizes a group of
 orthonormal basis functions to estimate the signals at a specific resolution.\\
-% These functions are known as wavelets. The concept of orthonormal basis
-% functions originated from Fourier analysis, which uses a set of sine waves to
-% analyze signals. However, unlike the sine function, which oscillates
-% indefinitely, the oscillation of the wavelet is confined to a finite time
-% interval after which it gradually diminishes to zero. This characteristic is
-% the reason behind its name "wavelet," meaning “small waves”.
 
-% Assume that we have a discrete signal $f_m(t) \in V_m$, with a resolution $m$ 
-% then we can 
-
-% while $V_m$ is the set of all
-% functions that can
-% be expressed using the basis $\phi_{m,n}\left(t\right)$.\\
-% And $m$ and $n$ are two integers denoting the dilation (signal resolution) and
-% translation respectively, \\
-% Then we can decompose $ f_m(t) $ to a lower resolution ($m-1$) by adding two
-% functions $f_{m-1}(t) \in V_{m-1}$ and $e_{m-1}(t) \in W_{m-1}$
-% , while $W_{m-1}$ is the orthogonal complement space of $V_{m-1}$ in ${\ V}_m$
-% that includes all the functions that can be expressed using the set of
-% basis $\psi_{{m-1},n}\left(t\right)$ , as follows:\\
 
 If we have a discrete signal $f_m(t)$, with a resolution $m$
 then we can decompose this signal to two functions $f_{m-1}(t)$
@@ -279,32 +269,26 @@ training, validation, and testing according to desired split ratios. However, I
 chose to keep the original split as it is for a fair comparison with other
 models that are also using the same datasets.
 
-%         \begin{figure}
-%         	\centering
-% 	        \includegraphics[scale=.5]{figures/figure_01.png}
-% 	        \caption{Caption}
-%           \label{fig:fig01}
-%         \end{figure}
-% \pagebreak
 
-\begin{figure}
+
+\begin{figure}[H]
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/figure_01.png}
+    \includegraphics[width=0.9\linewidth]{figures/dataset_CIFAKE.png}
     \caption{CIFAKE}
     \label{fig:sub1}
   \end{subfigure}%
   \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/figure_02.png}
+    \includegraphics[width=0.9\linewidth]{figures/dataset_RVSF.png}
     \caption{140k Real and Fake Faces}
     \label{fig:sub2}
   \end{subfigure}
-  \caption{The Two Used Deepfake Datasets}
+  \caption{The elected deepfake datasets for this study}
   \label{fig:test}
 \end{figure}
-\pagebreak
+% \pagebreak
 
 \subsection{Key Packages}
 The model is built using Python 3.11 , and Pytorch version 2.2.1 with cuda 12.1
@@ -317,73 +301,113 @@ et al., 2024).
 
 \subsection{Experiments}
 Table \ref{table:1} summarizes the trials that was made to train and evaluate
-our model
+our model, we will visit some of them in more details
 
-\begin{table}[!ht]
+\begin{table}[H]
   \centering
   \scalebox{0.7}{
-
-    \begin{tabular}{|>{\centering\arraybackslash}p{0.17\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.3\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|}
+  \begin{tabular}{|>{\centering\arraybackslash}p{0.17\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.3\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|}
+      
+    % {|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+  \textbf{Experiment} & 
+  \textbf{Dataset} & 
+  \textbf{wavelet fun} & 
+  \textbf{wavelet level}  & 
+  \textbf{Paches per decomposition}  & 
+  \textbf{Heads} & 
+  \textbf{encoder levels}  & 
+  \textbf{Sliced?} & 
+  \textbf{Used Slices} & 
+  \textbf{Batch Size} & 
+  \textbf{Image Dimension} \\ 
       \hline
-
-      \textbf{Experiment}                & \textbf{Dataset}                 &
-      \textbf{Wavelet fun}               &
-      \textbf{Wavelet decomp. level (L)} & \textbf{Paches per decomp. (P) } &
-      \textbf{Heads (H)}                 & \textbf{Encoder levels (E) }     &
-      \textbf{Sliced? (S)}               &
-      \textbf{Used Slices}               & \textbf{Batch Size}              &
-      \textbf{Image Dim.}
-      \\
-      \hline\hline
-
-      \textbf{1}                         & CIFAKE                           &
-      haar                               & 3                                & 1
-                                         & 16                               & 2 & 0 & ~                     & 1000 & 32
-      \\ \hline
-      \textbf{2}                         & CIFAKE                           &
-      db2                                & 3                                & 1
-                                         & 18                               & 2 & 0 & ~                     & 1000 & 32
-      \\ \hline
-      \textbf{3}                         & CIFAKE                           &
-      db2                                & 3                                & 1
-                                         & 18                               & 2 & 0 & ~                     & 500  & 32
-      \\ \hline
-      \textbf{4}                         & CIFAKE                           &
-      db2                                & 3                                & 1
-                                         & 18                               & 1 & 0 & ~                     & 500  & 32
-      \\ \hline
-      \textbf{5}                         & CIFAKE                           &
-      db2                                & 3                                & 1
-                                         & 18                               & 1 & 0 & ~                     & 1000 & 32
-      \\ \hline
-      \textbf{6}                         & CIFAKE                           &
-      db2                                & 3                                & 1
-                                         & 18                               & 1 & 1 & [ aaa, aah, aha, haa,
-      hav, hva, hvv, vaa, vav, vha ]     & 1000                             &
-      32
-      \\ \hline
-      \textbf{7}                         & CIFAKE                           &
-      db2                                & 3                                & 1
-                                         & 18                               & 1 & 0 & ~                     & 2000 & 32
-      \\ \hline
-      \textbf{8}                         & RVSF                             &
-      haar                               & 3                                & 1
-                                         & 16                               & 2 & 0 & ~                     & 1000 & 32
-      \\ \hline
-
-    \end{tabular}}
-
+      \hline
+      1 & CIFAKE & db2 & 3 & 1 & 18 & 1 & 0 & ~ & 500 & 32 \\ \hline
+      2 & RVSF & db2 & 3 & 1 & 18 & 1 & 0 & ~ & 500 & 32 \\ \hline
+      3 & CIFAKE & db2 & 3 & 1 & 18 & 1 & 0 & ~ & 1000 & 32 \\ \hline
+      4 & CIFAKE & db2 & 3 & 1 & 18 & 1 & 0 & ~ & 2000 & 32 \\ \hline
+      5 & CIFAKE & db2 & 3 & 1 & 18 & 1 & 1 & [aah ,aha ,vaa ,vav ,dva ,dvv ,aaa ,aav ,aha] & 1000 & 32 \\ \hline
+      6 & CIFAKE & db2 & 3 & 1 & 18 & 2 & 0 & ~ & 500 & 32 \\ \hline
+      7 & CIFAKE & haar & 3 & 1 & 16 & 2 & 0 & ~ & 1000 & 32 \\ \hline
+      8 & CIFAKE & haar & 3 & 1 & 16 & 1 & 1 & [aah ,aha ,vaa ,vav ,dva ,dvv ,aaa ,aav ,aha] & 1000 & 32 \\ \hline
+      9 & CIFAKE & db2 & 3 & 1 & 18 & 2 & 0 & ~ & 1000 & 32 \\ \hline
+      10 & RVSF & haar & 3 & 1 & 16 & 2 & 0 & ~ & 1000 & 32 \\ \hline
+  \end{tabular}}
   \caption{Table Shows}
   \label{table:1}
 \end{table}
 
-\subsubsection{Experiment 1}
+\subsubsection{Experiment1}
+In this experiment CIFAKE dataset is passed to the WPT stage for 3 levels of decompositions using Daubechies(db2) wavelet (figure \ref{fig:db2})
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.5\linewidth]{figures/wavelet_db2.png}
+    \caption{Daubechies(db2) wavelet}
+    \label{fig:db2}
+\end{figure}
+
+\noindent
+This stage will analyze an input image (that has dimensions 32(H) x 32(W)) to its $4^3 = 64$ coefficients, as shown in figure (figure \ref{fig:db2_dec_exp1}) ,aaa is the most approximate coefficient and ddd is most detailed coefficient which is considered a noise on the image 
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.25\textwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/exp1_img1.png}
+    \caption{Sample input}
+    \label{fig:exp1_sub1}
+  \end{subfigure}%
+
+  \bigskip
+  
+  \begin{subfigure}{0.7\textwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/exp1_img1_wpt_dec.png}
+    \caption{64 decompositions of the sample image}
+    \label{fig:exp1_sub2}
+  \end{subfigure}
+
+  \caption{Output of the WPT stage}
+  \label{fig:db2_dec_exp1}
+\end{figure}
+% \pagebreak
+
+\noindent
+In this experiment, it has been decided to retain all of the coefficients without discarding any. Subsequently, all coefficients will be forwarded to the patchify stage, where further determination will be made on whether to slice each decomposition vertically and horizontally as per the recommendation of the vanilla VIT model. Rather than slicing, the entire Wavelet Packet Transform (WPT) will be treated as a single patch (token) for the VIT stage. This VIT stage comprises a single encoder with 18 parallel heads. Additionally, the dataset will be supplied to the model in batches of 500 samples. Stochastic gradient descent has been chosen as the optimizer with an initial learning rate of 0.1 and a momentum of 0.9. The model summary for this experiment is presented in the following diagram \ref{fig:exp1_model}.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1.0\linewidth]{figures/exp1_model.png}
+    \caption{WPT-ViT Model for Experiment 1}
+    \label{fig:exp1_model}
+\end{figure}
+
+\noindent 
+The graph shows the training progress over 90 iterations, reaching a peak validation accuracy of 86.56\%.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.6\linewidth]{figures/exp1_traincurve.png}
+    \caption{Training Graph of Exp. 1}
+    \label{fig:exp1_model}
+\end{figure}
 
 
+\subsubsection{Experiment3}
+In this experiment CIFAKE dataset is passed to the WPT stage for 3 levels of decompositions using Daubechies(db2) wavelet (figure \ref{fig:db2})
+%-------------------
 
 %
 % ---- Bibliography ----
 %
+
+\section{Conclusion}
+
+
+
+
 \begin{thebibliography}{6}
   %
 
