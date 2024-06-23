@@ -6,7 +6,6 @@
 %
 %%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \documentclass{svproc}
 %
 % RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -14,14 +13,26 @@
 
 % to typeset URLs, URIs, and DOIs
 \usepackage{url}
+\usepackage{graphicx}
+\usepackage{amsmath}
+% \usepackage{biblatex}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularray}
+\usepackage{array}
+
+\newcolumntype{L}{>{\centering\arraybackslash}m{3cm}}
 \def\UrlFont{\rmfamily}
+\captionsetup[table]{skip=10pt}
 
 \begin{document}
-\mainmatter              % start of a contribution
+\mainmatter		 % start of a contribution
 %
-\title{DeepFake Detection Using Wavelet Packets with Vision Transformer (WPT-ViT)}
+\title{DeepFake Detection Using Wavelet Packets with Vision Transformer
+  (WPT-ViT)}
 %
-\titlerunning{DeepFake Detection Using WPT-ViT}  % abbreviated title (for running head)
+\titlerunning{DeepFake Detection Using WPT-ViT}
+% abbreviated title (for running head)
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
@@ -33,461 +44,400 @@
 \tocauthor{AbdulRahman AlTahhan}
 %
 \institute{University of Leeds, School of Computing, ODL MSc in AI, UK.\\
-WWW home page:\texttt{https://github.com/osmahus/WPT-ViT}
+  WWW home page:\texttt{https://github.com/osmahus/WPT-ViT}
 }
 
-\maketitle              % typeset the title of the contribution
+\maketitle		% typeset the title of the contribution
 
 \begin{abstract}
-The latest advances in generative algorithms have raised the quality of virtually created images and videos to the point that it has become very difficult to distinguish the real from the generated ones (Deep-Fake). This stimulated hot research to build better models to detect DF.  Our paper proposes a new DNN model to detect DF images using a wavelet packet transformer and a vision transformer (WPT-ViT). The study shows that attention could be found between the WPT decompositions of an image even without slicing the image into spatial patches, which is a novel modification to the original VIT model. We showed that by using smaller model sizes and lower GPU and CPU requirements, we can achieve comparable results with previous work in this research area, The model was trained and tested using two datasets, “CIFAKE” and “140k Real and Fake Faces,” which are generated using StyleGAN and Stable Diffusion algorithms.
-% We would like to encourage you to list your keywords within
-% the abstract section using the \keywords{...} command.
-\keywords{Deep Fake Detection, Wavelet Packets, Vision Transformer}
+  The latest advances in generative algorithms have raised the quality of
+  virtually created images and videos to the point that it has become very
+  difficult to distinguish the real from the generated ones (Deep-Fake). This
+  stimulated hot research to build better models to detect DF.	Our paper
+  proposes a new DNN model to detect DF images using a wavelet packet
+  transformer
+  and a vision transformer (WPT-ViT). The study shows that attention could be
+  found between the WPT decompositions of an image even without slicing the
+  image
+  into spatial patches, which is a novel modification to the original VIT
+  model.
+  We showed that by using smaller model sizes and lower GPU and CPU
+  requirements,
+  we can achieve comparable results with previous work in this research area,
+  The
+  model was trained and tested using two datasets, “CIFAKE” and “140k Real and
+  Fake Faces,” which are generated using StyleGAN and Stable Diffusion
+  algorithms.
+  % We would like to encourage you to list your keywords within
+  % the abstract section using the \keywords{...} command.
+  \keywords{Deep Fake Detection, Wavelet Packets, Vision Transformer}
 \end{abstract}
 %
 
 \section{Introduction}
-    In 2014, Goodfellow et al. introduced the Generative Adversarial Network (GAN), marking the beginning of the generative AI (GAI) era. Since then, researchers have shifted their focus from discriminative learning to generative learning. This wave brought various vision-generative applications to the market, such as Midjourney, Firefly, DALL-E2, and Imagen\cite {bengesi2024advancements}. Such applications were developed using state-of-the-art architectures like GAN, Variational Autoencoders, and Diffusion to generate images and videos with high fidelity and diversity, mimicking real-world photos and videos \cite{raut2024generative}. 
-Vision-generative technologies have shown high value in several domains. In the entertainment industry, for example, they could generate complete scenes that would otherwise be very risky for actors to perform or prohibitively expensive to produce. In Education, they could bring historical characters to life to talk with students for an immersive learning experience; similarly, the list of positive uses continues in other fields like manufacturing and marketing. However, this ability to produce synthetic content with realistic flavor was termed Deep Fake due to the unfortunate incidents in which these technologies were used to attack people through identity theft, character assassination, and faked pornography. On a larger scale, deep fakes were also used to spread misinformation, fake news, and communal hatred.
-According to a report released in April 2021 by Cybernews, deep fake content over the internet doubles every six months, posing a significant threat that needs to be addressed urgently \cite{patel2023deepfake}. 
-\\For that reason, there has been significant attention in both academic and industrial fields on finding ways to detect deep fakes with high accuracy and performance. For example, Facebook, Microsoft, and Amazon collaborated to launch the Deep Fake Detection Challenge (DFDC) on Kaggle from 2019 to 2020. A survey conducted by (Liang \& Xue, 2024) showed that the number of publications on deep fake detection surpassed the number of publications on deep fake generation in 2022 and 2023 \cite {gong2024contemporary}.
-\\This paper introduces a new deepfake detection tool that combines the strengths of wavelet analysis to extract important image features and Vision Transformer (VIT) to create lighter models with lower GPU and CPU requirements than CNN counterparts.
+In 2014, Goodfellow et al. introduced the Generative Adversarial Network
+(GAN), marking the beginning of the generative AI (GAI) era. Since then,
+researchers have shifted their focus from discriminative learning to generative
+learning. This wave brought various vision-generative applications to the
+market, such as Midjourney, Firefly, DALL-E2, and Imagen
+\cite{bengesi2024advancements}. Such applications were developed using
+state-of-the-art architectures like GAN, Variational Autoencoders, and
+Diffusion to generate images and videos with high fidelity and diversity,
+mimicking real-world photos and videos \cite{raut2024generative}.
+Vision-generative technologies have shown high value in several domains. In
+the entertainment industry, for example, they could generate complete scenes
+that would otherwise be very risky for actors to perform or prohibitively
+expensive to produce. In Education, they could bring historical characters to
+life to talk with students for an immersive learning experience; similarly, the
+list of positive uses continues in other fields like manufacturing and
+marketing. However, this ability to produce synthetic content with realistic
+flavor was termed Deep Fake due to the unfortunate incidents in which these
+technologies were used to attack people through identity theft, character
+assassination, and faked pornography. On a larger scale, deep fakes were also
+used to spread misinformation, fake news, and communal hatred.
+According to a report released in April 2021 by Cybernews, deep fake
+content over the internet doubles every six months, posing a significant threat
+that needs to be addressed urgently \cite{patel2023deepfake}.
+\\For that reason, there has been significant attention in both academic
+and industrial fields on finding ways to detect deep fakes with high accuracy
+and performance. For example, Facebook, Microsoft, and Amazon collaborated to
+launch the Deep Fake Detection Challenge (DFDC) on Kaggle from 2019 to 2020. A
+survey conducted by (Liang \& Xue, 2024) showed that the number of publications
+on deep fake detection surpassed the number of publications on deep fake
+generation in 2022 and 2023 \cite {gong2024contemporary}.
+\\This paper introduces a new deepfake detection tool that combines the
+strengths of wavelet analysis to extract important image features and Vision
+Transformer (VIT) to create lighter models with lower GPU and CPU requirements
+than CNN counterparts.
 
 \section{Literature Review}
 
-When it comes to detecting deep fakes, it can be seen as a binary classification problem involving training a machine learning model on a dataset of real and fake examples. This includes extracting relevant features from the data and using these features to predict the authenticity of the content (Patel et al., 2023). Previous research has suggested different ways to categorize work in the deepfake detection field. (Patel et al., 2023) highlighted three approaches for detecting deepfakes in video and images.
+When it comes to detecting deep fakes, it can be seen as a binary
+classification problem involving training a machine learning model on a dataset
+of real and fake examples. This includes extracting relevant features from the
+data and using these features to predict the authenticity of the content
+\cite{patel2023deepfake}. Previous research has suggested different ways to
+categorize work in the deepfake detection field. (Patel et al.,
+2023)\cite{patel2023deepfake} highlighted three approaches for detecting
+deepfakes in video and images.
 
-The first approach involves using handcrafted algorithms to extract features of visual artifacts, such as inconsistent head poses or unusual eye blinking. The results of the feature extractor could then be passed to any classifier, such as SVM or NN, to perform the detection. An example of this approach is the work of Matern et al. (2019), which has an AUC of 0.866.
+The first approach involves using handcrafted algorithms to extract features of
+visual artifacts, such as inconsistent head poses or unusual eye blinking. The
+results of the feature extractor could then be passed to any classifier, such
+as SVM or NN, to perform the detection. An example of this approach is the work
+of Matern et al. (2019)\cite{}, which has an AUC of 0.866.
 
-The second approach works on the pixel level to extract spatial features related to visual inconsistencies using local feature detectors (like SIFT and HOG) or steganography detectors. An example of this approach is the two-stream network proposed by (Zhou et al., 2018) with an AUC of 0.927. However, the effectiveness of the first two approaches has been reduced by the fact that the latest deepfake datasets were created using advanced image generation techniques, which decreases the likelihood of producing visual artifacts or detectable local features.
+The second approach works on the pixel level to extract spatial features
+related to visual inconsistencies using local feature detectors (like SIFT and
+HOG) or steganography detectors. An example of this approach is the two-stream
+network proposed by (Zhou et al., 2018) with an AUC of 0.927. However, the
+effectiveness of the first two approaches has been reduced by the fact that the
+latest deepfake datasets were created using advanced image generation
+techniques, which decreases the likelihood of producing visual artifacts or
+detectable local features.
 
-The third approach utilizes Deep Neural Networks to understand the intricate patterns and features present in the training dataset. The detection results are more accurate when a more relevant and comprehensive dataset is provided. According to Rana et al. (2022), previous deep fake detection models can be grouped into three categories: Machine learning, deep learning, and statistical. Their research indicated that 77% of the work from 2018 to 2020 falls under the Deep Learning category, with 78% being CNN-based. Ultimately, it was demonstrated that deep-learning-based deep fake detection models outperform non-deep learning models (Rana et al., 2022).
+The third approach utilizes Deep Neural Networks to understand the intricate
+patterns and features present in the training dataset. The detection results
+are more accurate when a more relevant and comprehensive dataset is provided.
+According to Rana et al. (2022), previous deep fake detection models can be
+grouped into three categories: Machine learning, deep learning, and
+statistical. Their research indicated that 77% of the work from 2018 to 2020 falls under the Deep Learning category, with 78% being CNN-based. Ultimately, it was demonstrated that deep-learning-based deep fake detection models outperform non-deep learning models (Rana et al., 2022).
 
-In a study conducted by Wang et al. (2024), it was demonstrated that while Convolutional Neural Networks (CNNs) are commonly used in deepfake detection to capture spatial relationships within images, making them effective in identifying facial manipulations and other visual irregularities at the frame level, Vision Transformers (ViTs) have distinct advantages in analyzing and comprehending the intricate details of deepfake images and videos. ViTs are especially good at understanding the overall structure of an image to identify inconsistencies or anomalies suggestive of manipulation.
+In a study conducted by Wang et al. (2024), it was demonstrated that while
+Convolutional Neural Networks (CNNs) are commonly used in deepfake detection to
+capture spatial relationships within images, making them effective in
+identifying facial manipulations and other visual irregularities at the frame
+level, Vision Transformers (ViTs) have distinct advantages in analyzing and
+comprehending the intricate details of deepfake images and videos. ViTs are
+especially good at understanding the overall structure of an image to identify
+inconsistencies or anomalies suggestive of manipulation.
 
-However, Wang also highlighted the challenges faced by standalone ViT models in deepfake detection, such as their struggle to generalize across diverse datasets, their need for extensive training data, their difficulty in maintaining temporal consistency in video deepfakes, their limited ability to capture local spatial information, and their potential inability to fully capture the temporal and sequential dependencies present in video data. To address these limitations, hybrid models that combine ViTs with other techniques, such as CNNs or RNNs, are often utilized.
+However, Wang also highlighted the challenges faced by standalone ViT models in
+deepfake detection, such as their struggle to generalize across diverse
+datasets, their need for extensive training data, their difficulty in
+maintaining temporal consistency in video deepfakes, their limited ability to
+capture local spatial information, and their potential inability to fully
+capture the temporal and sequential dependencies present in video data. To
+address these limitations, hybrid models that combine ViTs with other
+techniques, such as CNNs or RNNs, are often utilized.
 
-    
+\section{Methods}
+\subsection{Multiresolution Analysis}
+The concept of multiresolution analysis (MRA) was developed to address the
+limitations of the Fourier transform when dealing with non-stationary signals.
+These limitations arise from the principle of uncertainty in the time and
+frequency domains. Specifically, seeking high resolution in the time domain
+leads to poor resolution in the frequency domain, and vice versa. MRA addresses
+this issue by incorporating increasing levels of time samples as we transition
+from the slower part of the signal to the faster part (Erick Axel, et al.).
+In order to achieve this, MRA (Multiresolution Analysis) utilizes a group of
+orthonormal basis functions to estimate the signals at a specific resolution.\\
+% These functions are known as wavelets. The concept of orthonormal basis
+% functions originated from Fourier analysis, which uses a set of sine waves to
+% analyze signals. However, unlike the sine function, which oscillates
+% indefinitely, the oscillation of the wavelet is confined to a finite time
+% interval after which it gradually diminishes to zero. This characteristic is
+% the reason behind its name "wavelet," meaning “small waves”.
 
+% Assume that we have a discrete signal $f_m(t) \in V_m$, with a resolution $m$ 
+% then we can 
 
-\section{Fixed-Period Problems: The Sublinear Case}
-%
-With this chapter, the preliminaries are over, and we begin the search
-for periodic solutions to Hamiltonian systems. All this will be done in
-the convex case; that is, we shall study the boundary-value problem
-\begin{eqnarray*}
-  \dot{x}&=&JH' (t,x)\\
-  x(0) &=& x(T)
-\end{eqnarray*}
-with $H(t,\cdot)$ a convex function of $x$, going to $+\infty$ when
-$\left\|x\right\| \to \infty$.
+% while $V_m$ is the set of all
+% functions that can
+% be expressed using the basis $\phi_{m,n}\left(t\right)$.\\
+% And $m$ and $n$ are two integers denoting the dilation (signal resolution) and
+% translation respectively, \\
+% Then we can decompose $ f_m(t) $ to a lower resolution ($m-1$) by adding two
+% functions $f_{m-1}(t) \in V_{m-1}$ and $e_{m-1}(t) \in W_{m-1}$
+% , while $W_{m-1}$ is the orthogonal complement space of $V_{m-1}$ in ${\ V}_m$
+% that includes all the functions that can be expressed using the set of
+% basis $\psi_{{m-1},n}\left(t\right)$ , as follows:\\
 
-%
-\subsection{Autonomous Systems}
-%
-In this section, we will consider the case when the Hamiltonian $H(x)$
-is autonomous. For the sake of simplicity, we shall also assume that it
-is $C^{1}$.
+If we have a discrete signal $f_m(t)$, with a resolution $m$
+then we can decompose this signal to two functions $f_{m-1}(t)$
+and $e_{m-1}(t)$ at the lower resolution $m-1$, as follows:\\
 
-We shall first consider the question of nontriviality, within the
-general framework of
-$\left(A_{\infty},B_{\infty}\right)$-subquadratic Hamiltonians. In
-the second subsection, we shall look into the special case when $H$ is
-$\left(0,b_{\infty}\right)$-subquadratic,
-and we shall try to derive additional information.
-%
-\subsubsection{The General Case: Nontriviality.}
-%
-We assume that $H$ is
-$\left(A_{\infty},B_{\infty}\right)$-sub\-qua\-dra\-tic at infinity,
-for some constant symmetric matrices $A_{\infty}$ and $B_{\infty}$,
-with $B_{\infty}-A_{\infty}$ positive definite. Set:
-\begin{eqnarray}
-\gamma :&=&{\rm smallest\ eigenvalue\ of}\ \ B_{\infty} - A_{\infty} \\
-  \lambda : &=& {\rm largest\ negative\ eigenvalue\ of}\ \
-  J \frac{d}{dt} +A_{\infty}\ .
-\end{eqnarray}
-
-Theorem~\ref{ghou:pre} tells us that if $\lambda +\gamma < 0$, the
-boundary-value problem:
 \begin{equation}
-\begin{array}{rcl}
-  \dot{x}&=&JH' (x)\\
-  x(0)&=&x (T)
-\end{array}
-\end{equation}
-has at least one solution
-$\overline{x}$, which is found by minimizing the dual
-action functional:
+  \begin{aligned}
+     & f_m(t)=\sum_{n=0}^{2^m N-1} c_{m, n} \phi_{m, n}(t)
+  \end{aligned}
+  \label{eq:eq1}
+\end{equation}\\
+then:
 \begin{equation}
-  \psi (u) = \int_{o}^{T} \left[\frac{1}{2}
-  \left(\Lambda_{o}^{-1} u,u\right) + N^{\ast} (-u)\right] dt
-\end{equation}
-on the range of $\Lambda$, which is a subspace $R (\Lambda)_{L}^{2}$
-with finite codimension. Here
+  \begin{aligned}
+     & f_m(t)=f_{m-1}(t)+ e_{m-1}(t)
+  \end{aligned}
+  \label{eq:eq2}
+\end{equation}\\
+
+While:
 \begin{equation}
-  N(x) := H(x) - \frac{1}{2} \left(A_{\infty} x,x\right)
-\end{equation}
-is a convex function, and
+    \begin{aligned}
+       & f_{m-1}(t)=\sum_{n=0}^{2^{m-1} N-1} c_{{m-1}, n} \phi_{{m-1}, n}(t)
+    \end{aligned}
+    \label{eq:eq3}
+  \end{equation}
+  \begin{equation}
+    \begin{aligned}
+       & e_{m-1}(t)=\sum_{n=0}^{2^{m-1} N-1} \omega_{{m-1}, n} \psi_{{m-1}, n}(t)
+    \end{aligned}
+    \label{eq:eq4}
+  \end{equation}\\
+In general:\\ 
+Let $V_m$ be the set of functions that can be expressed in terms of the basis $\phi_{m,n}$\\
+,and $W_m$ be the set of functions that can be expressed in terms of the basis $\psi_{m,n}$\\
+
+\noindent
+equation \ref{eq:eq2} can be written in more general form using the orthogonal sum as follows:\\
 \begin{equation}
-  N(x) \le \frac{1}{2}
-  \left(\left(B_{\infty} - A_{\infty}\right) x,x\right)
-  + c\ \ \ \forall x\ .
+  V_m=V_{m-1} \oplus W_{m-1}
+  \label{eq:eq5}
+\end{equation}\\
+\noindent
+by expanding equation \ref{eq:eq5} we drive the following formula:
+\begin{equation}
+  V_m=V_0\oplus W_0\oplus W_1\oplus ... \oplus W_{m-2}\oplus W_{m-1}
+  \label{eq:eq6}
+\end{equation}
+\noindent
+The last equation represents the m-level Discrete Wavelet Transform (DWT)
+which denotes the change of basis from $\phi_m$ to the following wavelet coefficients:
+\begin{equation}
+  \phi_0\oplus \psi_0\oplus \psi_1\oplus ... \oplus \psi_{m-2}\oplus \psi_{m-1}
+  \label{eq:eq7}
 \end{equation}
 
-%
-\begin{proposition}
-Assume $H'(0)=0$ and $ H(0)=0$. Set:
-\begin{equation}
-  \delta := \liminf_{x\to 0} 2 N (x) \left\|x\right\|^{-2}\ .
-  \label{eq:one}
-\end{equation}
+\noindent
+$\phi$ is wellknown as "the scaling basis" and $\psi$ is wellknown as "the wavelet basis".\\
 
-If $\gamma < - \lambda < \delta$,
-the solution $\overline{u}$ is non-zero:
-\begin{equation}
-  \overline{x} (t) \ne 0\ \ \ \forall t\ .
-\end{equation}
-\end{proposition}
-%
-\begin{proof}
-Condition (\ref{eq:one}) means that, for every
-$\delta ' > \delta$, there is some $\varepsilon > 0$ such that
-\begin{equation}
-  \left\|x\right\| \le \varepsilon \Rightarrow N (x) \le
-  \frac{\delta '}{2} \left\|x\right\|^{2}\ .
-\end{equation}
 
-It is an exercise in convex analysis, into which we shall not go, to
-show that this implies that there is an $\eta > 0$ such that
-\begin{equation}
-  f\left\|x\right\| \le \eta
-  \Rightarrow N^{\ast} (y) \le \frac{1}{2\delta '}
-  \left\|y\right\|^{2}\ .
-  \label{eq:two}
-\end{equation}
+
+\section{Experiment Results}
+\subsection{Used Datasets}
+The datasets currently used to train and test deepfake detection models,
+such as FaceForensic++, Celeb-DDF, and DFDC, were developed before the latest
+diffusion-based tools like DALE-2 and Midjourney came into existence. This
+raises concerns about the effectiveness of models trained on traditional
+datasets to detect newly created deepfake images.
+
+Another important aspect of this study is the limitation of computational
+resources, which affects the size of the required datasets. Traditional
+datasets are larger than what is currently feasible. CIFAKE, which is an ideal
+deepfake dataset based on CIFAR-10, addresses these concerns. Firstly, it is
+created using the state-of-the-art stable-diffusion 1.3 algorithm. Secondly, it
+consists of a moderate total of 120000 images, with half being real and half
+being fake.
+
+Additionally, a StyleGAN3-based dataset called "140k Real and Fake Faces" was
+used to cover a broader range of deepfake styles. Similar to CIFAKE, this
+dataset also has a moderate size of 140000 images, equally divided into real
+and fake.
+
+In the model code, an option was provided to split the input dataset into
+training, validation, and testing according to desired split ratios. However, I
+chose to keep the original split as it is for a fair comparison with other
+models that are also using the same datasets.
+
+%         \begin{figure}
+%         	\centering
+% 	        \includegraphics[scale=.5]{figures/figure_01.png}
+% 	        \caption{Caption}
+%           \label{fig:fig01}
+%         \end{figure}
+% \pagebreak
 
 \begin{figure}
-\vspace{2.5cm}
-\caption{This is the caption of the figure displaying a white eagle and
-a white horse on a snow field}
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/figure_01.png}
+    \caption{CIFAKE}
+    \label{fig:sub1}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/figure_02.png}
+    \caption{140k Real and Fake Faces}
+    \label{fig:sub2}
+  \end{subfigure}
+  \caption{The Two Used Deepfake Datasets}
+  \label{fig:test}
 \end{figure}
+\pagebreak
 
-Since $u_{1}$ is a smooth function, we will have
-$\left\|hu_{1}\right\|_\infty \le \eta$
-for $h$ small enough, and inequality (\ref{eq:two}) will hold,
-yielding thereby:
-\begin{equation}
-  \psi (hu_{1}) \le \frac{h^{2}}{2}
-  \frac{1}{\lambda} \left\|u_{1} \right\|_{2}^{2} + \frac{h^{2}}{2}
-  \frac{1}{\delta '} \left\|u_{1}\right\|^{2}\ .
-\end{equation}
+\subsection{Key Packages}
+The model is built using Python 3.11 , and Pytorch version 2.2.1 with cuda 12.1
+The WPT stage in the WPT-ViT model is not only inspired by the work of Moritz
+et al. (2024), but also uses their open wavelet library called PTWT for image
+decomposition instead of the older PYWT developed by Lee et al. (2019). This
+choice was made after trying both, because of the significantly faster speed of
+PTWT, particularly due to its support for parallel processing using GPU (Wolter
+et al., 2024).
 
-If we choose $\delta '$ close enough to $\delta$, the quantity
-$\left(\frac{1}{\lambda} + \frac{1}{\delta '}\right)$
-will be negative, and we end up with
-\begin{equation}
-  \psi (hu_{1}) < 0\ \ \ \ \ {\rm for}\ \ h\ne 0\ \ {\rm small}\ .
-\end{equation}
+\subsection{Experiments}
+Table \ref{table:1} summarizes the trials that was made to train and evaluate
+our model
 
-On the other hand, we check directly that $\psi (0) = 0$. This shows
-that 0 cannot be a minimizer of $\psi$, not even a local one.
-So $\overline{u} \ne 0$ and
-$\overline{u} \ne \Lambda_{o}^{-1} (0) = 0$. \qed
-\end{proof}
-%
-\begin{corollary}
-Assume $H$ is $C^{2}$ and
-$\left(a_{\infty},b_{\infty}\right)$-subquadratic at infinity. Let
-$\xi_{1},\allowbreak\dots,\allowbreak\xi_{N}$  be the
-equilibria, that is, the solutions of $H' (\xi ) = 0$.
-Denote by $\omega_{k}$
-the smallest eigenvalue of $H'' \left(\xi_{k}\right)$, and set:
-\begin{equation}
-  \omega : = {\rm Min\,} \left\{\omega_{1},\dots,\omega_{k}\right\}\ .
-\end{equation}
-If:
-\begin{equation}
-  \frac{T}{2\pi} b_{\infty} <
-  - E \left[- \frac{T}{2\pi}a_{\infty}\right] <
-  \frac{T}{2\pi}\omega
-  \label{eq:three}
-\end{equation}
-then minimization of $\psi$ yields a non-constant $T$-periodic solution
-$\overline{x}$.
-\end{corollary}
-%
+\begin{table}[!ht]
+  \centering
+  \scalebox{0.7}{
 
-We recall once more that by the integer part $E [\alpha ]$ of
-$\alpha \in \bbbr$, we mean the $a\in \bbbz$
-such that $a< \alpha \le a+1$. For instance,
-if we take $a_{\infty} = 0$, Corollary 2 tells
-us that $\overline{x}$ exists and is
-non-constant provided that:
+    \begin{tabular}{|>{\centering\arraybackslash}p{0.17\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.13\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.11\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.3\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|>{\centering\arraybackslash}p{0.1\linewidth}|}
+      \hline
 
-\begin{equation}
-  \frac{T}{2\pi} b_{\infty} < 1 < \frac{T}{2\pi}
-\end{equation}
-or
-\begin{equation}
-  T\in \left(\frac{2\pi}{\omega},\frac{2\pi}{b_{\infty}}\right)\ .
-  \label{eq:four}
-\end{equation}
+      \textbf{Experiment}                & \textbf{Dataset}                 &
+      \textbf{Wavelet fun}               &
+      \textbf{Wavelet decomp. level (L)} & \textbf{Paches per decomp. (P) } &
+      \textbf{Heads (H)}                 & \textbf{Encoder levels (E) }     &
+      \textbf{Sliced? (S)}               &
+      \textbf{Used Slices}               & \textbf{Batch Size}              &
+      \textbf{Image Dim.}
+      \\
+      \hline\hline
 
-%
-\begin{proof}
-The spectrum of $\Lambda$ is $\frac{2\pi}{T} \bbbz +a_{\infty}$. The
-largest negative eigenvalue $\lambda$ is given by
-$\frac{2\pi}{T}k_{o} +a_{\infty}$,
-where
-\begin{equation}
-  \frac{2\pi}{T}k_{o} + a_{\infty} < 0
-  \le \frac{2\pi}{T} (k_{o} +1) + a_{\infty}\ .
-\end{equation}
-Hence:
-\begin{equation}
-  k_{o} = E \left[- \frac{T}{2\pi} a_{\infty}\right] \ .
-\end{equation}
+      \textbf{1}                         & CIFAKE                           &
+      haar                               & 3                                & 1
+                                         & 16                               & 2 & 0 & ~                     & 1000 & 32
+      \\ \hline
+      \textbf{2}                         & CIFAKE                           &
+      db2                                & 3                                & 1
+                                         & 18                               & 2 & 0 & ~                     & 1000 & 32
+      \\ \hline
+      \textbf{3}                         & CIFAKE                           &
+      db2                                & 3                                & 1
+                                         & 18                               & 2 & 0 & ~                     & 500  & 32
+      \\ \hline
+      \textbf{4}                         & CIFAKE                           &
+      db2                                & 3                                & 1
+                                         & 18                               & 1 & 0 & ~                     & 500  & 32
+      \\ \hline
+      \textbf{5}                         & CIFAKE                           &
+      db2                                & 3                                & 1
+                                         & 18                               & 1 & 0 & ~                     & 1000 & 32
+      \\ \hline
+      \textbf{6}                         & CIFAKE                           &
+      db2                                & 3                                & 1
+                                         & 18                               & 1 & 1 & [ aaa, aah, aha, haa,
+      hav, hva, hvv, vaa, vav, vha ]     & 1000                             &
+      32
+      \\ \hline
+      \textbf{7}                         & CIFAKE                           &
+      db2                                & 3                                & 1
+                                         & 18                               & 1 & 0 & ~                     & 2000 & 32
+      \\ \hline
+      \textbf{8}                         & RVSF                             &
+      haar                               & 3                                & 1
+                                         & 16                               & 2 & 0 & ~                     & 1000 & 32
+      \\ \hline
 
-The condition $\gamma < -\lambda < \delta$ now becomes:
-\begin{equation}
-  b_{\infty} - a_{\infty} <
-  - \frac{2\pi}{T} k_{o} -a_{\infty} < \omega -a_{\infty}
-\end{equation}
-which is precisely condition (\ref{eq:three}).\qed
-\end{proof}
-%
+    \end{tabular}}
 
-\begin{lemma}
-Assume that $H$ is $C^{2}$ on $\bbbr^{2n} \setminus \{ 0\}$ and
-that $H'' (x)$ is non-de\-gen\-er\-ate for any $x\ne 0$. Then any local
-minimizer $\widetilde{x}$ of $\psi$ has minimal period $T$.
-\end{lemma}
-%
-\begin{proof}
-We know that $\widetilde{x}$, or
-$\widetilde{x} + \xi$ for some constant $\xi
-\in \bbbr^{2n}$, is a $T$-periodic solution of the Hamiltonian system:
-\begin{equation}
-  \dot{x} = JH' (x)\ .
-\end{equation}
-
-There is no loss of generality in taking $\xi = 0$. So
-$\psi (x) \ge \psi (\widetilde{x} )$
-for all $\widetilde{x}$ in some neighbourhood of $x$ in
-$W^{1,2} \left(\bbbr / T\bbbz ; \bbbr^{2n}\right)$.
-
-But this index is precisely the index
-$i_{T} (\widetilde{x} )$ of the $T$-periodic
-solution $\widetilde{x}$ over the interval
-$(0,T)$, as defined in Sect.~2.6. So
-\begin{equation}
-  i_{T} (\widetilde{x} ) = 0\ .
-  \label{eq:five}
-\end{equation}
-
-Now if $\widetilde{x}$ has a lower period, $T/k$ say,
-we would have, by Corollary 31:
-\begin{equation}
-  i_{T} (\widetilde{x} ) =
-  i_{kT/k}(\widetilde{x} ) \ge
-  ki_{T/k} (\widetilde{x} ) + k-1 \ge k-1 \ge 1\ .
-\end{equation}
-
-This would contradict (\ref{eq:five}), and thus cannot happen.\qed
-\end{proof}
-%
-\paragraph{Notes and Comments.}
-The results in this section are a
-refined version of \cite{smit:wat};
-the minimality result of Proposition
-14 was the first of its kind.
-
-To understand the nontriviality conditions, such as the one in formula
-(\ref{eq:four}), one may think of a one-parameter family
-$x_{T}$, $T\in \left(2\pi\omega^{-1}, 2\pi b_{\infty}^{-1}\right)$
-of periodic solutions, $x_{T} (0) = x_{T} (T)$,
-with $x_{T}$ going away to infinity when $T\to 2\pi \omega^{-1}$,
-which is the period of the linearized system at 0.
-
-\begin{table}
-\caption{This is the example table taken out of {\it The
-\TeX{}book,} p.\,246}
-\begin{center}
-\begin{tabular}{r@{\quad}rl}
-\hline
-\multicolumn{1}{l}{\rule{0pt}{12pt}
-                   Year}&\multicolumn{2}{l}{World population}\\[2pt]
-\hline\rule{0pt}{12pt}
-8000 B.C.  &     5,000,000& \\
-  50 A.D.  &   200,000,000& \\
-1650 A.D.  &   500,000,000& \\
-1945 A.D.  & 2,300,000,000& \\
-1980 A.D.  & 4,400,000,000& \\[2pt]
-\hline
-\end{tabular}
-\end{center}
+  \caption{Table Shows}
+  \label{table:1}
 \end{table}
-%
-\begin{theorem} [Ghoussoub-Preiss]\label{ghou:pre}
-Assume $H(t,x)$ is
-$(0,\varepsilon )$-subquadratic at
-infinity for all $\varepsilon > 0$, and $T$-periodic in $t$
-\begin{equation}
-  H (t,\cdot )\ \ \ \ \ {\rm is\ convex}\ \ \forall t
-\end{equation}
-\begin{equation}
-  H (\cdot ,x)\ \ \ \ \ {\rm is}\ \ T{\rm -periodic}\ \ \forall x
-\end{equation}
-\begin{equation}
-  H (t,x)\ge n\left(\left\|x\right\|\right)\ \ \ \ \
-  {\rm with}\ \ n (s)s^{-1}\to \infty\ \ {\rm as}\ \ s\to \infty
-\end{equation}
-\begin{equation}
-  \forall \varepsilon > 0\ ,\ \ \ \exists c\ :\
-  H(t,x) \le \frac{\varepsilon}{2}\left\|x\right\|^{2} + c\ .
-\end{equation}
 
-Assume also that $H$ is $C^{2}$, and $H'' (t,x)$ is positive definite
-everywhere. Then there is a sequence $x_{k}$, $k\in \bbbn$, of
-$kT$-periodic solutions of the system
-\begin{equation}
-  \dot{x} = JH' (t,x)
-\end{equation}
-such that, for every $k\in \bbbn$, there is some $p_{o}\in\bbbn$ with:
-\begin{equation}
-  p\ge p_{o}\Rightarrow x_{pk} \ne x_{k}\ .
-\end{equation}
-\qed
-\end{theorem}
-%
-\begin{example} [{{\rm External forcing}}]
-Consider the system:
-\begin{equation}
-  \dot{x} = JH' (x) + f(t)
-\end{equation}
-where the Hamiltonian $H$ is
-$\left(0,b_{\infty}\right)$-subquadratic, and the
-forcing term is a distribution on the circle:
-\begin{equation}
-  f = \frac{d}{dt} F + f_{o}\ \ \ \ \
-  {\rm with}\ \ F\in L^{2} \left(\bbbr / T\bbbz; \bbbr^{2n}\right)\ ,
-\end{equation}
-where $f_{o} : = T^{-1}\int_{o}^{T} f (t) dt$. For instance,
-\begin{equation}
-  f (t) = \sum_{k\in \bbbn} \delta_{k} \xi\ ,
-\end{equation}
-where $\delta_{k}$ is the Dirac mass at $t= k$ and
-$\xi \in \bbbr^{2n}$ is a
-constant, fits the prescription. This means that the system
-$\dot{x} = JH' (x)$ is being excited by a
-series of identical shocks at interval $T$.
-\end{example}
-%
-\begin{definition}
-Let $A_{\infty} (t)$ and $B_{\infty} (t)$ be symmetric
-operators in $\bbbr^{2n}$, depending continuously on
-$t\in [0,T]$, such that
-$A_{\infty} (t) \le B_{\infty} (t)$ for all $t$.
+\subsubsection{Experiment 1}
 
-A Borelian function
-$H: [0,T]\times \bbbr^{2n} \to \bbbr$
-is called
-$\left(A_{\infty} ,B_{\infty}\right)$-{\it subquadratic at infinity}
-if there exists a function $N(t,x)$ such that:
-\begin{equation}
-  H (t,x) = \frac{1}{2} \left(A_{\infty} (t) x,x\right) + N(t,x)
-\end{equation}
-\begin{equation}
-  \forall t\ ,\ \ \ N(t,x)\ \ \ \ \
-  {\rm is\ convex\ with\  respect\  to}\ \ x
-\end{equation}
-\begin{equation}
-  N(t,x) \ge n\left(\left\|x\right\|\right)\ \ \ \ \
-  {\rm with}\ \ n(s)s^{-1}\to +\infty\ \ {\rm as}\ \ s\to +\infty
-\end{equation}
-\begin{equation}
-  \exists c\in \bbbr\ :\ \ \ H (t,x) \le
-  \frac{1}{2} \left(B_{\infty} (t) x,x\right) + c\ \ \ \forall x\ .
-\end{equation}
 
-If $A_{\infty} (t) = a_{\infty} I$ and
-$B_{\infty} (t) = b_{\infty} I$, with
-$a_{\infty} \le b_{\infty} \in \bbbr$,
-we shall say that $H$ is
-$\left(a_{\infty},b_{\infty}\right)$-subquadratic
-at infinity. As an example, the function
-$\left\|x\right\|^{\alpha}$, with
-$1\le \alpha < 2$, is $(0,\varepsilon )$-subquadratic at infinity
-for every $\varepsilon > 0$. Similarly, the Hamiltonian
-\begin{equation}
-H (t,x) = \frac{1}{2} k \left\|k\right\|^{2} +\left\|x\right\|^{\alpha}
-\end{equation}
-is $(k,k+\varepsilon )$-subquadratic for every $\varepsilon > 0$.
-Note that, if $k<0$, it is not convex.
-\end{definition}
-%
-
-\paragraph{Notes and Comments.}
-The first results on subharmonics were
-obtained by Rabinowitz in \cite{fo:kes:nic:tue}, who showed the existence of
-infinitely many subharmonics both in the subquadratic and superquadratic
-case, with suitable growth conditions on $H'$. Again the duality
-approach enabled Clarke and Ekeland in \cite{may:ehr:stein} to treat the
-same problem in the convex-subquadratic case, with growth conditions on
-$H$ only.
-
-Recently, Michalek and Tarantello (see \cite{1} and \cite{czaj:fitz})
-have obtained lower bound on the number of subharmonics of period $kT$,
-based on symmetry considerations and on pinching estimates, as in
-Sect.~5.2 of this article.
 
 %
 % ---- Bibliography ----
 %
 \begin{thebibliography}{6}
-%
+  %
 
-\bibitem {bengesi2024advancements}
-Bengesi, Staphord, et al. "Advancements in Generative AI: A Comprehensive Review of GANs, GPT, Autoencoders, Diffusion Model, and Transformers." IEEE Access (2024).
+  \bibitem{bengesi2024advancements}
+  Bengesi, Staphord, et al. "Advancements in Generative AI: A Comprehensive
+  Review of GANs, GPT, Autoencoders, Diffusion Model, and Transformers." IEEE
+  Access (2024).
 
-\bibitem {raut2024generative}
-Raut, Gaurav, and Apoorv Singh. "Generative AI in Vision: A Survey on Models, Metrics, and Applications." arXiv preprint arXiv:2402.16369 (2024).
+  \bibitem{raut2024generative}
+  Raut, Gaurav, and Apoorv Singh. "Generative AI in Vision: A Survey on Models,
+  Metrics, and Applications." arXiv preprint arXiv:2402.16369 (2024).
 
-\bibitem {zhang2022deepfake}
-Heidari, Arash, Nima, Jafari Navimipour, Hasan, Dag, Mehmet, Unal. "Deepfake detection using deep learning methods: A systematic and comprehensive review". Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery 14. 2(2024): e1520.
+  \bibitem{patel2023deepfake}
+  Pei, Gan, Jiangning, Zhang, Menghan, Hu, Guangtao, Zhai, Chengjie, Wang,
+  Zhenyu, Zhang, Jian, Yang, Chunhua, Shen, Dacheng, Tao. "Deepfake Generation
+  and Detection: A Benchmark and Survey". arXiv preprint arXiv:2403.17881.
+  (2024).
 
-\bibitem {rana2022deepfake}
-Patel, Yogesh, Sudeep, Tanwar, Rajesh, Gupta, Pronaya, Bhattacharya, Innocent Ewean, Davidson, Royi, Nyameko, Srinivas, Aluvala, Vrince, Vimal. "Deepfake Generation and Detection: Case Study and Challenges". IEEE Access. (2023).
+  \bibitem {gong2024contemporary}
+  Gong, Liang Yu, Xue Jun, Li. "A Contemporary Survey on Deepfake Detection:
+  Datasets, Algorithms, and Challenges". Electronics 13. 3(2024): 585.
 
-\bibitem {patel2023deepfake}
-Pei, Gan, Jiangning, Zhang, Menghan, Hu, Guangtao, Zhai, Chengjie, Wang, Zhenyu, Zhang, Jian, Yang, Chunhua, Shen, Dacheng, Tao. "Deepfake Generation and Detection: A Benchmark and Survey". arXiv preprint arXiv:2403.17881. (2024).
+  \bibitem{zhang2022deepfake}
+  Heidari, Arash, Nima, Jafari Navimipour, Hasan, Dag, Mehmet, Unal. "Deepfake
+  detection using deep learning methods: A systematic and comprehensive
+  review".
+  Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery 14.
+  2(2024): e1520.
 
-\bibitem {akhtar2023deepfakes}
-Zhang, Tao. "Deepfake generation and detection, a survey". Multimedia Tools and Applications 81. 5(2022): 6259–6276.
+  \bibitem{rana2022deepfake}
+  Patel, Yogesh, Sudeep, Tanwar, Rajesh, Gupta, Pronaya, Bhattacharya, Innocent
+  Ewean, Davidson, Royi, Nyameko, Srinivas, Aluvala, Vrince, Vimal. "Deepfake
+  Generation and Detection: Case Study and Challenges". IEEE Access. (2023).
 
-\bibitem {masood2023deepfakes}
-Akhtar, Zahid. "Deepfakes generation and detection: A short survey". Journal of Imaging 9. 1(2023): 18.
+  %   \bibitem{akhtar2023deepfakes}
+  %   Zhang, Tao. "Deepfake generation and detection, a survey". Multimedia Tools and Applications 81. 5(2022): 6259–6276.
 
-\bibitem {stroebel2023systematic}
-Rana, Md Shohel, Mohammad Nur, Nobi, Beddhu, Murali, Andrew H, Sung. "Deepfake detection: A systematic literature review". IEEE access 10. (2022): 25494–25513.
+  %   \bibitem{masood2023deepfakes}
+  %   Akhtar, Zahid. "Deepfakes generation and detection: A short survey". Journal of Imaging 9. 1(2023): 18.
 
-\bibitem {heidari2024deepfake}
-Masood, Momina, Mariam, Nawaz, Khalid Mahmood, Malik, Ali, Javed, Aun, Irtaza, Hafiz, Malik. "Deepfakes generation and detection: State-of-the-art, open challenges, countermeasures, and way forward". Applied intelligence 53. 4(2023): 3974–4026.
+  %   \bibitem{stroebel2023systematic}
+  %   Rana, Md Shohel, Mohammad Nur, Nobi, Beddhu, Murali, Andrew H, Sung. "Deepfake detection: A systematic literature review". IEEE access 10. (2022): 25494–25513.
 
-\bibitem {pei2024deepfake}
-Stroebel, Laura, Mark, Llewellyn, Tricia, Hartley, Tsui Shan, Ip, Mohiuddin, Ahmed. "A systematic literature review on the effectiveness of deepfake detection techniques". Journal of Cyber Security Technology 7. 2(2023): 83–113.
+  %   \bibitem {heidari2024deepfake}
+  %   Masood, Momina, Mariam, Nawaz, Khalid Mahmood, Malik, Ali, Javed, Aun, Irtaza, Hafiz, Malik. "Deepfakes generation and detection: State-of-the-art, open challenges, countermeasures, and way forward". Applied intelligence 53. 4(2023): 3974–4026.
 
-\bibitem {gong2024contemporary}	Gong, Liang Yu, Xue Jun, Li. "A Contemporary Survey on Deepfake Detection: Datasets, Algorithms, and Challenges". Electronics 13. 3(2024): 585.
+  %   \bibitem {pei2024deepfake}
+  %   Stroebel, Laura, Mark, Llewellyn, Tricia, Hartley, Tsui Shan, Ip, Mohiuddin, Ahmed. "A systematic literature review on the effectiveness of deepfake detection techniques". Journal of Cyber Security Technology 7. 2(2023): 83–113.
 
-\bibitem {wang2024timely}
-Wang, Zhikan, Zhongyao, Cheng, Jiajie, Xiong, Xun, Xu, Tianrui, Li, Bharadwaj, Veeravalli, Xulei, Yang. "A Timely Survey on Vision Transformer for Deepfake Detection". arXiv preprint arXiv:2405.08463. (2024).
+  %   \bibitem {wang2024timely}
+  %   Wang, Zhikan, Zhongyao, Cheng, Jiajie, Xiong, Xun, Xu, Tianrui, Li, Bharadwaj, Veeravalli, Xulei, Yang. "A Timely Survey on Vision Transformer for Deepfake Detection". arXiv preprint arXiv:2405.08463. (2024).
 
-
-
-\bibitem {140krvsf}	
-“140k Real and Fake Faces | Kaggle.\url{https://www.kaggle.com/xhlulu/140k-real-and-fake-faces}
-
+  % \bibitem {140krvsf}	
+  % “140k Real and Fake Faces | Kaggle.\url{https://www.kaggle.com/xhlulu/140k-real-and-fake-faces}
 
 \end{thebibliography}
 \end{document}

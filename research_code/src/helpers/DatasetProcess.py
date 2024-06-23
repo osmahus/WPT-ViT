@@ -1,13 +1,23 @@
-# import cudf.pandas
-# cudf.pandas.install()
 import os
-# from torchvision.io import read_image
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from PIL import Image
 
 
+#--------------------------------------------------------------------------------------
+# Function to return one hot vector for the label
+#--------------------------------------------------------------------------------------
+def onehot(label, classes=2):
+    onehot_val = str(np.base_repr(2**label, 2)).zfill(classes)
+    onehot_array = np.array([int(i)for i in [*onehot_val]])
+    return onehot_array
+
+
+#--------------------------------------------------------------------------------------
+# Extract the information from the dataset folder path and summarize them in a dataframe
+# give tha ability to split the database to train, validation and testing
+#--------------------------------------------------------------------------------------
 def dataset_data(img_path, folder_name, img_class):
     fname = os.listdir(img_path + "/"+folder_name)
     fname.sort()
@@ -20,39 +30,17 @@ def dataset_data(img_path, folder_name, img_class):
 
     return fpath, height, width, channels, labels
 
-# Define a search function
 
+def ds_to_df(absolute_path, relative_paths, paths_classes, map_cat, original_split, required_split='all'):
 
-def search_string(s, search):
-    return search in str(s).lower()
-
-# ---------------------------------------------------------------
-
-
-def onehot(label, classes=2):
-    onehot_val = str(np.base_repr(2**label, 2)).zfill(classes)
-    onehot_array = np.array([int(i)for i in [*onehot_val]])
-    return onehot_array
-
-# ---------------------------------------------------------------
-
-
-def remove_fname_space(path):
-    for filename in os.listdir(path):
-        my_source = path + "/" + filename
-        my_dest = path + "/" + filename.strip().replace(" ", "")
-        os.rename(my_source, my_dest)
-
-def ds_to_df(absolute_path,relative_paths,paths_classes,original_split,required_split='all'):
-    
     if required_split == 'all':
-        split_length=len(paths_classes)
-        split_lst= range(split_length)
+        split_length = len(paths_classes)
+        split_lst = range(split_length)
     else:
-        split_lst = [i for i, x in enumerate(original_split) if x == required_split]
-        split_length=len(split_lst)
-        
-    
+        split_lst = [i for i, x in enumerate(
+            original_split) if x == required_split]
+        split_length = len(split_lst)
+
     fpath = [""]*split_length
     height = [""]*split_length
     width = [""]*split_length
@@ -65,7 +53,7 @@ def ds_to_df(absolute_path,relative_paths,paths_classes,original_split,required_
     channels_total = []
     labels_total = []
 
-    for i,j in enumerate(split_lst):
+    for i, j in enumerate(split_lst):
         fpath[i],  height[i], width[i], channels[i], labels[i] = dataset_data(
             absolute_path, relative_paths[j], paths_classes[j])
         fpath_total += fpath[i]
@@ -88,22 +76,24 @@ def ds_to_df(absolute_path,relative_paths,paths_classes,original_split,required_
         width_col: width_total,
         channels_col: channels_total,
         cat_class_col: labels_total}
-    
+
     ds_df = pd.DataFrame(ds_dict)
-    ds_df[cat_class_col] = ds_df[cat_class_col].astype('category')
-    ds_df[num_class_col] = ds_df[cat_class_col].cat.codes
-    ds_df[onehot_class_col] = ds_df[num_class_col].apply(lambda row: onehot(row))
-    
+    ds_df[cat_class_col] = ds_df[cat_class_col]
+    ds_df[num_class_col] = ds_df[cat_class_col].map(map_cat)
+    ds_df[onehot_class_col] = ds_df[num_class_col].apply(
+        lambda row: onehot(row))
+
     return ds_df
 
 
-def dataset_to_df(absolute_path, relative_paths, paths_classes, original_split, re_split, train_ratio, val_ratio, test_ratio):
+def dataset_to_df(absolute_path, relative_paths, paths_classes, map_cat, original_split, re_split, train_ratio, val_ratio, test_ratio):
     classes = list(set(paths_classes))
     classes.sort(reverse=True)
 
     cat_class_col = "Class"
 
-    df_all = ds_to_df(absolute_path,relative_paths,paths_classes,original_split)
+    df_all = ds_to_df(absolute_path, relative_paths,
+                      paths_classes, map_cat, original_split)
 
     if re_split:
         # Split the validation and test
@@ -114,30 +104,38 @@ def dataset_to_df(absolute_path, relative_paths, paths_classes, original_split, 
         df_val, df_test = train_test_split(
             df_tmp, train_size=val_rel_ratio, stratify=df_tmp[[cat_class_col]])
     else:
-        val_test = [x for i, x in enumerate(list(set(original_split))) if x != 'train']
-        
-        df_train = ds_to_df(absolute_path,relative_paths,paths_classes,original_split,"train")
-        
-        if len(val_test)==1:
-            df_val = ds_to_df(absolute_path,relative_paths,paths_classes,original_split,val_test[0])
-            df_test = ds_to_df(absolute_path,relative_paths,paths_classes,original_split,val_test[0])
+        val_test = [x for i, x in enumerate(
+            list(set(original_split))) if x != 'train']
+
+        df_train = ds_to_df(absolute_path, relative_paths,
+                            paths_classes, map_cat, original_split, "train")
+
+        if len(val_test) == 1:
+            df_val = ds_to_df(absolute_path, relative_paths,
+                              paths_classes, map_cat, original_split, val_test[0])
+            df_test = ds_to_df(absolute_path, relative_paths,
+                               paths_classes, map_cat, original_split, val_test[0])
         else:
-            df_val = ds_to_df(absolute_path,relative_paths,paths_classes,original_split,"valid")
-            df_test = ds_to_df(absolute_path,relative_paths,paths_classes,original_split,"test")
-        
+            df_val = ds_to_df(absolute_path, relative_paths,
+                              paths_classes, map_cat, original_split, "valid")
+            df_test = ds_to_df(absolute_path, relative_paths,
+                               paths_classes, map_cat, original_split, "test")
+
         # Shuffle the dataset
         df_test = df_test.sample(frac=1)
         # Reset the index of the shuffled DataFrame
         df_test = df_test.reset_index(drop=True)
-        
+
     # Return the class statistics
     classes_stats = np.zeros((3, len(classes)), dtype=int)
 
     for i in range(len(classes)):
         # Qty of the class
-        classes_stats[0, i] = len(df_train[df_train[cat_class_col] == classes[i]])
+        classes_stats[0, i] = len(
+            df_train[df_train[cat_class_col] == classes[i]])
         classes_stats[1, i] = len(df_val[df_val[cat_class_col] == classes[i]])
-        classes_stats[2, i] = len(df_test[df_test[cat_class_col] == classes[i]])
+        classes_stats[2, i] = len(
+            df_test[df_test[cat_class_col] == classes[i]])
 
     classes_stats_df = pd.DataFrame(classes_stats.tolist(), columns=classes)
     classes_stats_df["Total"] = classes_stats_df.sum(axis=1)
@@ -147,9 +145,39 @@ def dataset_to_df(absolute_path, relative_paths, paths_classes, original_split, 
     return df_all, df_train, df_val, df_test, classes_stats_df
 
 
+#--------------------------------------------------------------------------------------
+# Functions to search a file name and to return the index inside the dataset table
+#--------------------------------------------------------------------------------------
+def search_string(s, search):
+    return search in str(s).lower()
+
+
 def search_df(ref_df, str):
     # Search for the string in all columns
     mask = ref_df.apply(lambda x: x.map(lambda s: search_string(s, str)))
     # Filter the DataFrame based on the mask
     filtered_df = ref_df.loc[mask.any(axis=1)]
     return filtered_df.index[0]
+
+
+#--------------------------------------------------------------------------------------
+# Function to remove the space in the file name
+#--------------------------------------------------------------------------------------
+def remove_fname_space(path):
+    for filename in os.listdir(path):
+        my_source = path + "/" + filename
+        my_dest = path + "/" + filename.strip().replace(" ", "")
+        os.rename(my_source, my_dest)
+
+
+
+#--------------------------------------------------------------------------------------
+# Function to sort and return the classes according to the negative and positive
+#--------------------------------------------------------------------------------------
+def get_classes(map_cat):
+    classes = []
+    key_list = list(map_cat.keys())
+    val_list = list(map_cat.values())
+    for i in range(len(map_cat)):
+        classes.append(key_list[val_list.index(i)])
+    return classes

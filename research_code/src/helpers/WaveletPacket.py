@@ -1,13 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pywt
-from pywt import WaveletPacket2D as wp2d
-import ptwt
+import pywt # Please Check References Below
+from pywt import WaveletPacket2D as wp2d 
+import ptwt # Please Check References Below
 import torch
 from einops import rearrange
 from mpl_toolkits.axes_grid1 import ImageGrid
 
 # device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+####################################################################################
+#                           References
+####################################################################################
+# Lee, Gregory, et al. "PyWavelets: A Python package for wavelet analysis." Journal of Open Source Software 4.36 (2019): 1237.
+# Wolter, Moritz, et al. "ptwt-The PyTorch Wavelet Toolbox." Journal of Machine Learning Research 25.80 (2024): 1-7.
 
 
 ####################################################################################
@@ -233,3 +239,12 @@ def wavelet_families():
         formatted_w_fun = f'{i}) {w_fun}: {", ".join(pywt.wavelist(w_fun))}'
         print(formatted_w_fun)
     print(" \n")
+
+
+####################################################################################
+#      return maximum wavelet level
+####################################################################################
+def get_maxlevel(img, wavelet_fun, mode='symmetric'):
+    # Returns the maximum possible level for an image
+    max_level = ptwt.WaveletPacket2D( img.float(), wavelet_fun, mode=mode).maxlevel
+    return max_level
